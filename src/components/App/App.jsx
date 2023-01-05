@@ -1,28 +1,30 @@
-import { Profile } from 'components/Profile/Profile';
-import { Section } from 'components/Section/Section';
-import { FriendList } from 'components/FriendList/FriendList';
-import { TransactionHistory } from 'components/TransactionHistory/TransactionHistory';
-import friends from '../friends.json';
-import user from '../user.json';
-import data from '../data.json';
-import transactions from '../transactions.json';
-import { updateArray } from '../Utils/filterData';
+import Home from 'components/pages/Home';
+import { Route, Routes } from 'react-router-dom';
+import { Container, Header, Link } from './App.styled';
 
-const newData = updateArray(data);
+const Movies = () => {
+  return <div>Movies Page</div>;
+};
+
+const Reviews = () => {
+  return <div>Reviews Page</div>;
+};
 
 export const App = () => {
   return (
-    <div>
-      <Profile
-        username={user.username}
-        tag={user.tag}
-        location={user.location}
-        avatar={user.avatar}
-        stats={user.stats}
-      />
-      <Section title="Upload stats" stats={newData}></Section>
-      <FriendList friends={friends} />;
-      <TransactionHistory items={transactions} />;
-    </div>
+    <Container>
+      <Header>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/movies">Movies</Link>
+        </nav>
+      </Header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        {/* <Route path="/reviews" element={<Reviews />} /> */}
+        <Route path="*" element={<Reviews />} />
+      </Routes>
+    </Container>
   );
 };

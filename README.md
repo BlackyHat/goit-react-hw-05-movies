@@ -2,7 +2,4 @@
 
 Educational project. Creating by using crate-react-app
 
-1. Social profile component;
-2. Section of statistic;
-3. Friends list;
-4. History of transactions;
+Movie search component with React Routes and Code Splitting

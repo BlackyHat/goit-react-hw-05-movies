@@ -20,15 +20,21 @@ const MoviesDetails = () => {
   console.log(location);
   const backLinkHref = location.state?.from ?? '/movies';
 
-  const { poster_path, genres, original_title, overview, vote_average } =
-    movieDetails;
+  const {
+    poster_path,
+    genres,
+    original_title,
+    overview,
+    vote_average,
+    release_date,
+  } = movieDetails;
   return (
     <div>
       <NavLink to={backLinkHref}>Go back</NavLink>
       <Card>
         <img src={checkPoster(poster_path)} alt={original_title} />
         <CardInfo>
-          <h2>{original_title}</h2>
+          <h2>{original_title + ' ' + release_date.slice(0, 4)}</h2>
           <p>User Score: {(vote_average * 10).toFixed() + ' %'}</p>
           <CardInfoTitle>Overview</CardInfoTitle>
           <p>{overview}</p>

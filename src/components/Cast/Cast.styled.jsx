@@ -7,6 +7,8 @@ export const Card = styled.li`
   justify-content: flex-start;
   width: calc((100% - 4 * 16px) / 5);
   padding: 4px;
+  border-radius: 4px;
+
   transform: scale(1.05);
   transition: transform 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
     box-shadow 350ms linear;

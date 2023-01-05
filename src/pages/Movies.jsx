@@ -14,6 +14,9 @@ const Movies = () => {
   };
 
   useEffect(() => {
+    if (!filter) {
+      return;
+    }
     getMovieByQuery({ query: filter, page: 1 }).then(({ results }) =>
       setMovies(results)
     );

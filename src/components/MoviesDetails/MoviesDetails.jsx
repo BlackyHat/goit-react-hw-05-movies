@@ -1,15 +1,19 @@
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
 import { getMovieDetails } from 'components/services/api';
-import noPoster from './no-poster-available.png';
-import { NavLink } from 'react-router-dom';
 import { Card, CardInfo, CardInfoTitle, AddList } from './MoviesDetails.styled';
-import { Outlet, useLocation } from 'react-router-dom';
+
+import noPoster from './no-poster-available.png';
 
 const MoviesDetails = () => {
   const location = useLocation();
   const { moviesId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  const backLinkHref = location.state?.from ?? '/movies';
+  const backRef = useRef(backLinkHref);
+
   useEffect(() => {
     getMovieDetails(moviesId).then(setMovieDetails);
   }, [moviesId]);
@@ -17,9 +21,6 @@ const MoviesDetails = () => {
   if (!movieDetails) {
     return;
   }
-  console.log(location);
-  const backLinkHref = location.state?.from ?? '/movies';
-
   const {
     poster_path,
     genres,
@@ -28,18 +29,22 @@ const MoviesDetails = () => {
     vote_average,
     release_date,
   } = movieDetails;
+  //
+  const userScoreNormalized = (vote_average * 10).toFixed();
+  const genresNormalized = genres.map(({ name }) => name).join(' ');
+  //
   return (
     <div>
-      <NavLink to={backLinkHref}>Go back</NavLink>
+      <NavLink to={backRef.current}>Go back</NavLink>
       <Card>
         <img src={checkPoster(poster_path)} alt={original_title} />
         <CardInfo>
           <h2>{original_title + ' ' + release_date.slice(0, 4)}</h2>
-          <p>User Score: {(vote_average * 10).toFixed() + ' %'}</p>
+          <p>User Score: {userScoreNormalized + ' %'}</p>
           <CardInfoTitle>Overview</CardInfoTitle>
           <p>{overview}</p>
           <CardInfoTitle>Genres</CardInfoTitle>
-          <p>{genres.map(({ name }) => name).join(' ')}</p>
+          <p>{genresNormalized}</p>
         </CardInfo>
       </Card>
       <AddList>
@@ -63,3 +68,21 @@ function checkPoster(img) {
   }
   return noPoster;
 }
+
+MoviesDetails.propTypes = {
+  movieDetails: PropTypes.arrayOf(
+    PropTypes.shape({
+      poster_path: PropTypes.string.isRequired,
+      original_title: PropTypes.string.isRequired,
+      overview: PropTypes.string.isRequired,
+      vote_average: PropTypes.string.isRequired,
+      release_date: PropTypes.string.isRequired,
+      genres: PropTypes.arrayOf(
+        PropTypes.exact({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+        })
+      ),
+    })
+  ),
+};

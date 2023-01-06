@@ -23,11 +23,11 @@ const Movies = () => {
   }, [filter]);
 
   return (
-    <div>
+    <main>
       <h1 className="visually-hidden">Movies search</h1>
       <SearchBox onSubmit={onChangeQuery} />
       <MovieGallery movies={movies} />
-    </div>
+    </main>
   );
 };
 

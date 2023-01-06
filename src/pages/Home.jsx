@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { getMovies } from 'components/services/api';
 import MovieGallery from '../components/MovieGallery/MovieGallery';
-import { useState, useEffect } from 'react';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -10,11 +11,21 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <main>
       <h1>Trending today</h1>
       <MovieGallery movies={movies} />
-    </div>
+    </main>
   );
 };
 
 export default Home;
+
+Home.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      title: PropTypes.string,
+    })
+  ),
+};

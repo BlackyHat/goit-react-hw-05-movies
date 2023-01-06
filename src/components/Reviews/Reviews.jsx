@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
+
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'components/services/api';
-import { useState, useEffect } from 'react';
 import { ReviewItem, ReviewAuthor } from './Reviews.styled';
 
 const Reviews = () => {
@@ -30,3 +32,13 @@ const Reviews = () => {
 };
 
 export default Reviews;
+
+Reviews.propTypes = {
+  movieReview: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+    })
+  ),
+};

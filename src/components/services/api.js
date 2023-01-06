@@ -19,6 +19,7 @@ export const getMovieByQuery = async params => {
       ...params,
     },
   });
+
   return data;
 };
 export const getMovieDetails = async movie_id => {
@@ -28,7 +29,8 @@ export const getMovieDetails = async movie_id => {
       language: 'en-US',
     },
   });
-  return data;
+
+  return data || '';
 };
 export const getMovieCredits = async movie_id => {
   const { data } = await movieApi.get(`/movie/${movie_id}/credits`, {

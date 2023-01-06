@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
+
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCredits } from 'components/services/api';
-import { useState, useEffect } from 'react';
 import { Card, Gallery } from './Cast.styled';
 import noPoster from './no_foto.jpg';
 
@@ -18,8 +20,8 @@ const Cast = () => {
 
   return (
     <Gallery>
-      {movieCast.map(({ id, character, name, profile_path }) => (
-        <Card key={id}>
+      {movieCast.map(({ cast_id, character, name, profile_path }) => (
+        <Card key={cast_id}>
           <img src={checkPoster(profile_path)} alt="name" />
           <p>{name}</p>
           <p>Character: {character}</p>
@@ -37,3 +39,14 @@ function checkPoster(img) {
   }
   return noPoster;
 }
+
+Cast.propTypes = {
+  movieCast: PropTypes.arrayOf(
+    PropTypes.shape({
+      cast_id: PropTypes.string.isRequired,
+      character: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      profile_path: PropTypes.string.isRequired,
+    })
+  ),
+};

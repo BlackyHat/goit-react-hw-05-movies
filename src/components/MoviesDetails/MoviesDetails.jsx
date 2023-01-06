@@ -22,11 +22,23 @@ const MoviesDetails = () => {
   const backRef = useRef(backLinkHref);
 
   useEffect(() => {
-    getMovieDetails(moviesId).then(setMovieDetails);
+    getMovieDetails(moviesId)
+      .then(setMovieDetails)
+      .catch(() => {
+        console.log('Not found on server');
+      });
   }, [moviesId]);
 
   if (!movieDetails) {
-    return;
+    return (
+      <div>
+        <BestLink to={backRef.current}>
+          <IoMdArrowRoundBack />
+          Go back
+        </BestLink>
+        <p>Information on updating. Try another movie...</p>
+      </div>
+    );
   }
   const {
     poster_path,

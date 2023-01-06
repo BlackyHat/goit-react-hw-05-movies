@@ -7,20 +7,18 @@ import { useSearchParams } from 'react-router-dom';
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const filter = searchParams.get('filter') ?? '';
+  const query = searchParams.get('query') ?? '';
 
   const onChangeQuery = query => {
-    setSearchParams(query !== '' ? { filter: query } : {});
+    setSearchParams(query !== '' ? { query } : {});
   };
 
   useEffect(() => {
-    if (!filter) {
+    if (!query) {
       return;
     }
-    getMovieByQuery({ query: filter, page: 1 }).then(({ results }) =>
-      setMovies(results)
-    );
-  }, [filter]);
+    getMovieByQuery({ query }).then(({ results }) => setMovies(results));
+  }, [query]);
 
   return (
     <main>

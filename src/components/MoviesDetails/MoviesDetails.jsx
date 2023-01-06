@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { getMovieDetails } from 'components/services/api';
-import { Card, CardInfo, CardInfoTitle, AddList } from './MoviesDetails.styled';
+import {
+  Card,
+  CardInfo,
+  CardInfoTitle,
+  AddList,
+  BestLink,
+} from './MoviesDetails.styled';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 import noPoster from './no-poster-available.png';
 
@@ -35,7 +42,10 @@ const MoviesDetails = () => {
   //
   return (
     <div>
-      <NavLink to={backRef.current}>Go back</NavLink>
+      <BestLink to={backRef.current}>
+        <IoMdArrowRoundBack />
+        Go back
+      </BestLink>
       <Card>
         <img src={checkPoster(poster_path)} alt={original_title} />
         <CardInfo>

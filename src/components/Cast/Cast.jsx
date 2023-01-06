@@ -41,7 +41,6 @@ function checkPoster(img) {
 }
 
 Cast.propTypes = {
-  moviesId: PropTypes.string.isRequired,
   movieCast: PropTypes.arrayOf(
     PropTypes.shape({
       cast_id: PropTypes.string.isRequired,

@@ -16,11 +16,12 @@ import { checkPoster } from 'components/utils/checkPoster';
 const MovieGalleryItem = ({ item }) => {
   const location = useLocation();
   return (
-    <Grid item xs={12} md={3}>
+    <Grid item xs={10} md={3} sx={{ margin: '0 auto' }}>
       <CardActionArea>
         <Card sx={{ maxWidth: 345 }}>
           <NewLink to={`/movies/${item.id}`} state={{ from: location }}>
             <CardMedia
+              sx={{ minHeight: 310 }}
               component="img"
               height="80%"
               image={checkPoster(item.poster_path)}

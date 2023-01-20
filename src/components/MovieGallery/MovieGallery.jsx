@@ -1,22 +1,16 @@
+import MovieGalleryItem from 'components/MovieGalleryItem/MovieGalleryItem';
+import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
-import { NavLink, useLocation } from 'react-router-dom';
-import { MovieItem, Gallery } from './MovieGallery.styled';
-import { FcFilmReel } from 'react-icons/fc';
 
 const MovieGallery = ({ movies }) => {
-  const location = useLocation();
   return (
-    <Gallery>
-      {movies?.map(({ id, title, name }) => (
-        <MovieItem key={id} className="movie__item">
-          {' '}
-          <FcFilmReel />
-          <NavLink to={`/movies/${id}`} state={{ from: location }}>
-            {title || name}
-          </NavLink>
-        </MovieItem>
-      ))}
-    </Gallery>
+    <>
+      <Grid container spacing={2} sx={{ mb: '32px' }}>
+        {movies.map(movie => (
+          <MovieGalleryItem key={movie.id} item={movie} />
+        ))}
+      </Grid>
+    </>
   );
 };
 

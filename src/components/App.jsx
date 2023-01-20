@@ -4,9 +4,9 @@ import { SharedLayout } from 'components/SharedLayout/SharedLayout';
 import Cast from 'components/Cast/Cast';
 import Reviews from 'components/Reviews/Reviews';
 
-const Home = lazy(() => import('../../pages/Home'));
-const Movies = lazy(() => import('../../pages/Movies'));
-const MoviesDetails = lazy(() => import('../MoviesDetails/MoviesDetails'));
+const Home = lazy(() => import('../pages/Home'));
+const Movies = lazy(() => import('../pages/Movies'));
+const MoviesDetails = lazy(() => import('./MoviesDetails/MoviesDetails'));
 
 export const App = () => {
   return (

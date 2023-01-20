@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-
-import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { getMovieDetails } from 'components/services/api';
 import {
@@ -10,24 +10,27 @@ import {
   AddList,
   BestLink,
 } from './MoviesDetails.styled';
+import { Rating } from '@mui/material';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-
-import noPoster from './no-poster-available.png';
+import { checkPoster } from 'components/utils/checkPoster';
+import { hadlerScroll } from 'components/utils/handlerScroll';
 
 const MoviesDetails = () => {
+  const navigate = useNavigate();
+
   const location = useLocation();
   const { moviesId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const backLinkHref = location.state?.from ?? '/movies';
   const backRef = useRef(backLinkHref);
-
+  const [value, setValue] = useState(2);
   useEffect(() => {
     getMovieDetails(moviesId)
       .then(setMovieDetails)
       .catch(() => {
-        console.log('Not found on server');
+        redirectMainPage(navigate);
       });
-  }, [moviesId]);
+  }, [moviesId, navigate]);
 
   if (!movieDetails) {
     return (
@@ -37,6 +40,7 @@ const MoviesDetails = () => {
           Go back
         </BestLink>
         <p>Information on updating. Try another movie...</p>
+        <p>You will automatically redirect to main page in seconds...</p>
       </div>
     );
   }
@@ -63,6 +67,13 @@ const MoviesDetails = () => {
         <CardInfo>
           <h2>{original_title + ' ' + release_date.slice(0, 4)}</h2>
           <p>User Score: {userScoreNormalized + ' %'}</p>
+          <Rating
+            name="read-only"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
           <CardInfoTitle>Overview</CardInfoTitle>
           <p>{overview}</p>
           <CardInfoTitle>Genres</CardInfoTitle>
@@ -72,10 +83,14 @@ const MoviesDetails = () => {
       <AddList>
         <p>Additional information</p>
         <li>
-          <NavLink to="cast">Cast</NavLink>
+          <BestLink to="cast" onClick={hadlerScroll}>
+            Cast
+          </BestLink>
         </li>
         <li>
-          <NavLink to="reviews">Reviews</NavLink>
+          <BestLink to="reviews" onClick={hadlerScroll}>
+            Reviews
+          </BestLink>
         </li>
       </AddList>
       <Outlet />
@@ -83,13 +98,6 @@ const MoviesDetails = () => {
   );
 };
 export default MoviesDetails;
-
-function checkPoster(img) {
-  if (img) {
-    return `https://image.tmdb.org/t/p/w500/${img}`;
-  }
-  return noPoster;
-}
 
 MoviesDetails.propTypes = {
   movieDetails: PropTypes.arrayOf(
@@ -108,3 +116,9 @@ MoviesDetails.propTypes = {
     })
   ),
 };
+
+function redirectMainPage(navigate) {
+  return setTimeout(() => {
+    return navigate('/', { replace: true });
+  }, 5000);
+}

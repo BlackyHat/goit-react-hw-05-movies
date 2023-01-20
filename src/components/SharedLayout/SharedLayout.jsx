@@ -1,20 +1,25 @@
 // Imports
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import { Container, Header, Link } from './SharedLayout.styled';
+import { Header } from 'components/Header/Header';
+// import { Container } from './SharedLayout.styled';
+import { Container } from '@mui/material';
 
 export const SharedLayout = () => {
   return (
-    <Container>
-      <Header>
+    <>
+      <Header />
+      <Container maxWidth="md">
+        {/* <Header>
         <nav>
           <Link to="/">Home</Link>
           <Link to="/movies">Movies</Link>
         </nav>
-      </Header>
-      <Suspense fallback={null}>
-        <Outlet />
-      </Suspense>
-    </Container>
+      </Header> */}
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
+      </Container>
+    </>
   );
 };

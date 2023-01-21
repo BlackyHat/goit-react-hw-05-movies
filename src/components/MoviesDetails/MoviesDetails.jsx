@@ -40,7 +40,7 @@ const MoviesDetails = () => {
           Go back
         </BestLink>
         <p>Information on updating. Try another movie...</p>
-        <p>You will automatically redirect to main page in seconds...</p>
+        <p>You will automatically redirect to main page in 5 seconds...</p>
       </div>
     );
   }

@@ -50,3 +50,12 @@ export const getMovieReviews = async movie_id => {
   });
   return data;
 };
+export const getMovieTrailers = async movie_id => {
+  const { data } = await movieApi.get(`/movie/${movie_id}/videos`, {
+    params: {
+      api_key: API_KEY,
+      language: 'en-US',
+    },
+  });
+  return data;
+};

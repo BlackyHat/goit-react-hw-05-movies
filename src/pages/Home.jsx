@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { getMovies } from 'components/services/api';
-import MovieGallery from '../components/MovieGallery/MovieGallery';
+import MovieSlider from 'components/MovieSlider/MovieSlider';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <main>
       <h1>Trending today</h1>
-      <MovieGallery movies={movies} />
+      <MovieSlider movies={movies} />
     </main>
   );
 };

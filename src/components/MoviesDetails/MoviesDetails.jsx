@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useParams, Outlet, useLocation } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'components/services/api';
 import {
-  Card,
+  MovieCard,
   CardInfo,
   CardInfoTitle,
   AddList,
@@ -17,12 +17,12 @@ import { hadlerScroll } from 'components/utils/handlerScroll';
 
 const MoviesDetails = () => {
   const navigate = useNavigate();
-
   const location = useLocation();
+
   const { moviesId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const backLinkHref = location.state?.from ?? '/movies';
-  const backRef = useRef(backLinkHref);
+
   const [value, setValue] = useState(2);
   useEffect(() => {
     getMovieDetails(moviesId)
@@ -35,7 +35,7 @@ const MoviesDetails = () => {
   if (!movieDetails) {
     return (
       <div>
-        <BestLink to={backRef.current}>
+        <BestLink to={backLinkHref}>
           <IoMdArrowRoundBack />
           Go back
         </BestLink>
@@ -51,6 +51,7 @@ const MoviesDetails = () => {
     overview,
     vote_average,
     release_date,
+    backdrop_path,
   } = movieDetails;
   //
   const userScoreNormalized = (vote_average * 10).toFixed();
@@ -58,11 +59,11 @@ const MoviesDetails = () => {
   //
   return (
     <div>
-      <BestLink to={backRef.current}>
+      <BestLink to={backLinkHref}>
         <IoMdArrowRoundBack />
         Go back
       </BestLink>
-      <Card>
+      <MovieCard value={backdrop_path}>
         <img src={checkPoster(poster_path)} alt={original_title} />
         <CardInfo>
           <h2>{original_title + ' ' + release_date.slice(0, 4)}</h2>
@@ -79,17 +80,34 @@ const MoviesDetails = () => {
           <CardInfoTitle>Genres</CardInfoTitle>
           <p>{genresNormalized}</p>
         </CardInfo>
-      </Card>
+      </MovieCard>
       <AddList>
         <p>Additional information</p>
         <li>
-          <BestLink to="cast" onClick={hadlerScroll}>
+          <BestLink
+            to="cast"
+            onClick={hadlerScroll}
+            state={{ from: backLinkHref }}
+          >
             Cast
           </BestLink>
         </li>
         <li>
-          <BestLink to="reviews" onClick={hadlerScroll}>
+          <BestLink
+            to="reviews"
+            onClick={hadlerScroll}
+            state={{ from: backLinkHref }}
+          >
             Reviews
+          </BestLink>
+        </li>
+        <li>
+          <BestLink
+            to="movie-trailers"
+            onClick={hadlerScroll}
+            state={{ from: backLinkHref }}
+          >
+            Trailers
           </BestLink>
         </li>
       </AddList>

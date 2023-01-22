@@ -1,13 +1,24 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export const Card = styled.div`
+export const MovieCard = styled.div`
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   gap: 16px;
   padding: 16px;
+  margin-top: 16px;
   border-bottom: 1px solid black;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.56),
+      rgba(0, 0, 0, 0.56)
+    ),
+    ${({ value }) => value && `url(https://image.tmdb.org/t/p/w500/${value})`};
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   & img {
     width: 40%;
     border-radius: 8px;

@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { SharedLayout } from 'components/SharedLayout/SharedLayout';
 import Cast from 'components/Cast/Cast';
 import Reviews from 'components/Reviews/Reviews';
+import MovieTrailers from './MovieTrailers/MovieTrailers';
 
 const Home = lazy(() => import('../pages/Home'));
 const Movies = lazy(() => import('../pages/Movies'));
@@ -17,6 +18,7 @@ export const App = () => {
         <Route path="movies/:moviesId" element={<MoviesDetails />}>
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
+          <Route path="movie-trailers" element={<MovieTrailers />} />
         </Route>
         <Route path="*" element={<Home />} />
       </Route>

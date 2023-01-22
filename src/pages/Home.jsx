@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { getMovies } from 'components/services/api';
 import MovieSlider from 'components/MovieSlider/MovieSlider';
+import { getToday } from 'components/utils/getToday';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -9,10 +10,9 @@ const Home = () => {
   useEffect(() => {
     getMovies().then(({ results }) => setMovies(results));
   }, []);
-
   return (
     <main>
-      <h1>Trending today</h1>
+      <h1>Trending {getToday()}</h1>
       <MovieSlider movies={movies} />
     </main>
   );

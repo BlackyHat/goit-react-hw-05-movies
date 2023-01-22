@@ -8,7 +8,6 @@ export const MovieCard = styled.div`
   gap: 16px;
   padding: 16px;
   margin-top: 16px;
-  border-bottom: 1px solid black;
   background-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 0.56),
@@ -33,21 +32,28 @@ export const CardInfo = styled.div`
   display: flex;
   flex-direction: column;
 
-  & .title {
+  & h2 {
     font-weight: 700;
+    color: #fff;
+  }
+
+  & p {
+    color: #fff;
   }
 `;
 export const CardInfoTitle = styled.p`
   font-weight: 700;
 `;
 export const AddList = styled.ul`
-  padding-bottom: 24px;
+  /* padding-bottom: 8px; */
+  border-top: 1px solid black;
   border-bottom: 1px solid black;
   display: flex;
   flex-direction: row-reverse;
   & p {
     width: 100%;
     text-align: center;
+    margin: 20px 0;
   }
 
   & li {

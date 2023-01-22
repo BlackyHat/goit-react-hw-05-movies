@@ -18,9 +18,12 @@ const MovieTrailers = () => {
     return;
   }
 
+  const normalizedMovieTrailer = movieTrailers.filter(
+    ({ type }) => type === 'Trailer' || type === 'Teaser'
+  );
   return (
     <Gallery>
-      {movieTrailers.map(({ id, key, name }) => (
+      {normalizedMovieTrailer.map(({ id, key, name }) => (
         <Card key={id}>
           <a href={`https://youtu.be/${key}`} target="blank">
             <picture>
